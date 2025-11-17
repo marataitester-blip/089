@@ -5,9 +5,10 @@ import type { TarotCard } from '../types';
 interface ModalProps {
     card: TarotCard;
     onClose: () => void;
+    title?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ card, onClose }) => {
+const Modal: React.FC<ModalProps> = ({ card, onClose, title }) => {
     const modalContentRef = useRef<HTMLDivElement>(null);
 
     // Close modal on escape key press
@@ -44,12 +45,18 @@ const Modal: React.FC<ModalProps> = ({ card, onClose }) => {
             >
                 <button 
                     onClick={onClose} 
-                    className="absolute top-3 right-3 text-brand-muted hover:text-brand-accent text-3xl font-bold transition-colors"
+                    className="absolute top-3 right-3 text-brand-muted hover:text-brand-accent text-3xl font-bold transition-colors z-10"
                     aria-label="Close"
                 >
                     &times;
                 </button>
-                
+
+                {title && (
+                    <h2 className="font-cinzel text-brand-accent text-center text-4xl mb-4 font-bold tracking-wider">
+                        {title}
+                    </h2>
+                )}
+
                 <img 
                     src={card.imageUrl} 
                     alt={card.name} 
